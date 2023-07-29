@@ -6,6 +6,11 @@ function init() {
         walk();
     });
 
+    element = document.getElementById('advWalkBtn');
+    element.addEventListener('click', function () {
+        advanceWalk();
+    });
+
     element = document.getElementById('modifyBtn');
     element.addEventListener('click', function () {
         modify();
@@ -24,11 +29,12 @@ function init() {
 
 function walk() {
     let el;
-    let fieldSetElement = document.querySelector("fieldset:nth-of-type(1)");
-    let textAreaElement = document.createElement("textarea");
+    let walkBtnElement = document.querySelector('#walkBtn');
+    let textAreaElement = document.createElement('textarea');
 
     textAreaElement.rows = 15;
     textAreaElement.cols = 50;
+
 
     el = document.getElementById('p1');
     showNode(el, textAreaElement);
@@ -48,17 +54,55 @@ function walk() {
     el = el.querySelector('section > *');
     showNode(el, textAreaElement);
     
-    
-    fieldSetElement.appendChild(textAreaElement);
+    walkBtnElement.after(textAreaElement);
 }
 
-function showNode(el, textAreaToAppendTo) {
+
+function showNode(el, textAreaToAppend) {
     let nodeType = el.nodeType;
     let nodeName = el.nodeName;
     let nodeValue = el.nodeValue;
-
-    textAreaToAppendTo.value += `Node type: ${nodeType} Node name: ${nodeName} Node value: ${nodeValue} \n\n`;
+    
+    textAreaToAppend.value   += `Node type: ${nodeType} Node name: ${nodeName} Node value: ${nodeValue} \n\n`;
 }
+
+function advanceWalk() {
+    let walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_ALL,)
+    let currNode = walker.currentNode;
+    let textAreaElement = document.createElement('textarea');
+    textAreaElement.rows = 15;
+    textAreaElement.cols = 50;
+
+    let advWalkBtnElement = document.querySelector('#advWalkBtn');
+    let indentLevel = 0;
+
+
+    while (currNode) {
+        
+        textAreaElement.value += `${addIndent(indentLevel)}${currNode.nodeName}\n`;
+        // textAreaElement.value += `${addIndent(indentLevel)}`
+        // showNode(currNode, textAreaElement);
+        if (!currNode.nextSibling && !currNode.firstChild ) {
+            console.log(`${currNode.nodeName} has no siblings or children`)
+            indentLevel--;
+        } else if (currNode.firstChild) {
+            console.log(`${currNode.nodeName} has children, indenting`)
+            indentLevel++;
+        }
+        currNode = walker.nextNode()
+    }
+    
+    advWalkBtnElement.after(textAreaElement);
+}
+
+function addIndent(numIndent) {
+    let indent = '';
+    for (let i = 0; i < numIndent; i++) {
+        indent += '    ';
+    }
+    return indent;
+}
+
 
 function modify() {
     let el = document.getElementById('p1');
