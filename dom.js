@@ -16,6 +16,11 @@ function init() {
         modify();
     });
 
+    element = document.getElementById('advModifyBtn');
+    element.addEventListener('click', function () {
+        advanceModify();
+    });
+
     element = document.getElementById('addBtn');
     element.addEventListener('click', function () {
         add();
@@ -29,34 +34,31 @@ function init() {
 
 function walk() {
     let el;
-    let walkBtnElement = document.querySelector('#walkBtn');
-    let textAreaElement = document.createElement('textarea');
+    let walkTextAreaElement = document.getElementById('walkOutputElement');
 
-    textAreaElement.rows = 15;
-    textAreaElement.cols = 50;
+    walkTextAreaElement.rows = 15;
+    walkTextAreaElement.cols = 50;
 
 
     el = document.getElementById('p1');
-    showNode(el, textAreaElement);
+    showNode(el, walkTextAreaElement);
     
     el = el.firstChild;
-    showNode(el, textAreaElement);
+    showNode(el, walkTextAreaElement);
 
     el = el.nextSibling;
-    showNode(el, textAreaElement);
+    showNode(el, walkTextAreaElement);
     
     el = el.lastChild;
-    showNode(el, textAreaElement);
+    showNode(el, walkTextAreaElement);
     
     el = el.parentNode.parentNode.parentNode;
-    showNode(el, textAreaElement);
+    showNode(el, walkTextAreaElement);
     
     el = el.querySelector('section > *');
-    showNode(el, textAreaElement);
-    
-    walkBtnElement.after(textAreaElement);
-}
+    showNode(el, walkTextAreaElement);
 
+}
 
 function showNode(el, textAreaToAppend) {
     let nodeType = el.nodeType;
@@ -67,39 +69,40 @@ function showNode(el, textAreaToAppend) {
 }
 
 function advanceWalk() {
-    let walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_ALL,)
+    let walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_ALL)
     let currNode = walker.currentNode;
-    let textAreaElement = document.createElement('textarea');
-    textAreaElement.rows = 15;
-    textAreaElement.cols = 50;
+    let advWalkTextAreaElement = document.getElementById('advWalkOutputElement');
+    advWalkTextAreaElement.rows = 15;
+    advWalkTextAreaElement.cols = 50;
 
-    let advWalkBtnElement = document.querySelector('#advWalkBtn');
     let indentLevel = 0;
 
 
     while (currNode) {
-        
-        textAreaElement.value += `${addIndent(indentLevel)}${currNode.nodeName}\n`;
-        // textAreaElement.value += `${addIndent(indentLevel)}`
-        // showNode(currNode, textAreaElement);
+        if (currNode.nodeType === Node.ELEMENT_NODE) {
+            advWalkTextAreaElement.value += `${addIndent(indentLevel)}${currNode.nodeName}\n`;
+        }
+
         if (!currNode.nextSibling && !currNode.firstChild ) {
-            console.log(`${currNode.nodeName} has no siblings or children`)
             indentLevel--;
         } else if (currNode.firstChild) {
-            console.log(`${currNode.nodeName} has children, indenting`)
             indentLevel++;
         }
         currNode = walker.nextNode()
     }
     
-    advWalkBtnElement.after(textAreaElement);
 }
 
 function addIndent(numIndent) {
     let indent = '';
-    for (let i = 0; i < numIndent; i++) {
-        indent += '    ';
+
+    if (numIndent <= 0) {
+        return indent;
     }
+    for (let i = 0; i < numIndent-1; i++) {
+        indent += '|   ';
+    }
+    indent += '|-- ';
     return indent;
 }
 
@@ -125,6 +128,21 @@ function modify() {
     el.dataset.cool = 'true';       // data-cool="true"
     el.dataset.coolFactor = '9000'; //data-cool-factor="9000"
 
+}
+
+function advanceModify() {
+    /**
+     *  1.  Changes the text of the h1 to say "DOM Manipulation is Fun!"
+        2.  Changes the color of the h1 to a random dark color from one of the 5 CSS variables defined in the style tag above.  You can use the Math.random() function.
+        3. Sets the class of the p tag to "shmancy" so that does a new CSS text effect of your own design. You can find something on the internet (please cite the URL of your inspiration) or make up your own.  You can use the classList property as you like, but make sure you toggle the animation class on and off every time you push the button.
+     */
+    let h1Element = document.querySelector('h1');
+    h1Element.innerText = 'DOM Manipulation is Fun!';
+
+    h1Element.style.color = `var(--darkcolor${Math.floor(Math.random() * 6) + 1})`;
+
+    let pElement = document.querySelector('p');
+    pElement.classList.toggle('shmancy');
 }
 
 function add() {

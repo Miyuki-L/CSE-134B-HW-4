@@ -59,6 +59,23 @@
             75% {background: #ffd97d;}
             100% {background: #ff9b85;}
         }
+
+        .shmancy {
+            /* Inspiration https://codepen.io/P1N2O/pen/pyBNzX */
+            animation-name: backgroundGradient;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease;
+            background: linear-gradient(45deg, var(--color1), var(--color2), var(--color3), var(--color4));
+            background-size: 400% 100%;
+        }
+
+        @keyframes  backgroundGradient {
+            0% {background-position: 0% 100%;}
+	        50% {background-position: 50% 100%;}
+	        100% {background-position: 100% 100%;}
+        }
     </style>
 </head>
 <body>
@@ -74,6 +91,9 @@
         <label for="walkBtn">Basic Traversal</label>
         <input type="button" id="walkBtn" value="Walk">
 
+        <label for="walkOutputElement">Walk Output</label>
+        <textarea id="walkOutputElement" for="walkOutput"></textarea>
+
         <!--
             Q1a) Modify the simple walk button example to not use alerts but instead to print out the node information on the page in a <textarea> within this fieldset. Using appropriate spacing or returns, so we can see each step -->
 
@@ -86,6 +106,8 @@
 
         <label for="advWalkBtn">Advance Traversal</label>
         <input type="button" id="advWalkBtn" value="Advance Walk">
+        <label for="advWalkOutputElement">Advance Walk Output</label>
+        <textarea id="advWalkOutputElement" for="advWalkOutput"></textarea>
     </fieldset>
 
     <fieldset>
@@ -99,6 +121,8 @@
             2.  Changes the color of the h1 to a random dark color from one of the 5 CSS variables defined in the style tag above.  You can use the Math.random() function.
             3. Sets the class of the p tag to "shmancy" so that does a new CSS text effect of your own design. You can find something on the internet (please cite the URL of your inspiration) or make up your own.  You can use the classList property as you like, but make sure you toggle the animation class on and off every time you push the button.
         -->
+        <label for="advModifyBtn">Advance Modification</label>
+        <input type="button" id="advModifyBtn" value="Advance Modify">
     </fieldset>
 
     <fieldset>
