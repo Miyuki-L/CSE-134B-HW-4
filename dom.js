@@ -23,35 +23,41 @@ function init() {
 }
 
 function walk() {
-   let el;
+    let el;
+    let fieldSetElement = document.querySelector("fieldset:nth-of-type(1)");
+    let textAreaElement = document.createElement("textarea");
 
-   el = document.getElementById('p1');
-   showNode(el);
+    textAreaElement.rows = 15;
+    textAreaElement.cols = 50;
 
-   el = el.firstChild;
-   showNode(el);
+    el = document.getElementById('p1');
+    showNode(el, textAreaElement);
+    
+    el = el.firstChild;
+    showNode(el, textAreaElement);
 
-   el = el.nextSibling;
-   showNode(el);
-
-   el = el.lastChild;
-   showNode(el);
-
-   el = el.parentNode.parentNode.parentNode;
-   showNode(el);
-
-   el = el.querySelector('section > *');
-   showNode(el);
-
-
+    el = el.nextSibling;
+    showNode(el, textAreaElement);
+    
+    el = el.lastChild;
+    showNode(el, textAreaElement);
+    
+    el = el.parentNode.parentNode.parentNode;
+    showNode(el, textAreaElement);
+    
+    el = el.querySelector('section > *');
+    showNode(el, textAreaElement);
+    
+    
+    fieldSetElement.appendChild(textAreaElement);
 }
 
-function showNode(el) {
+function showNode(el, textAreaToAppendTo) {
     let nodeType = el.nodeType;
     let nodeName = el.nodeName;
     let nodeValue = el.nodeValue;
 
-    alert(`Node type: ${nodeType}\nNode name: ${nodeName}\nNode value: ${nodeValue}`);
+    textAreaToAppendTo.value += `Node type: ${nodeType} Node name: ${nodeName} Node value: ${nodeValue} \n\n`;
 }
 
 function modify() {
@@ -104,7 +110,7 @@ function add() {
 }
 
 function remove() {
-  document.body.removeChild(document.body.lastChild);
+    document.body.removeChild(document.body.lastChild);
 }
 
 window.addEventListener('DOMContentLoaded', init);
