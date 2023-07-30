@@ -40,6 +40,16 @@ function init() {
     element.addEventListener('click', function () {
         addAdvanced();
     });
+
+    element = document.getElementById('safeDeleteBtn');
+    element.addEventListener('click', function () {
+        safeDelete();
+    });
+
+    element = document.getElementById('selectorDeleteBtn');
+    element.addEventListener('click', function () {
+        selectorDelete();
+    });
 }
 
 function walk() {
@@ -115,7 +125,6 @@ function addIndent(numIndent) {
     indent += '|-- ';
     return indent;
 }
-
 
 function modify() {
     let el = document.getElementById('p1');
@@ -238,4 +247,26 @@ function remove() {
     document.body.removeChild(document.body.lastChild);
 }
 
+function safeDelete() {
+    let bodyElement = document.body;
+    let lastChild = bodyElement.lastChild;
+    let controlsSection = document.getElementById('controls');
+
+    if (lastChild.isSameNode(controlsSection)) {
+        if (lastChild.previousSibiling) {
+            document.body.removeChild(lastChild.previousSibling);
+        }
+    } else {
+        document.body.removeChild(lastChild);
+    }
+}
+
+function selectorDelete() {
+    let selectedElement = document.getElementById('selectorDeleteInput').value;
+    let elementsToDelete = document.querySelectorAll(selectedElement);
+
+    for (let i=0; i < elementsToDelete.length; i++) {
+        elementsToDelete[i].remove();
+    }
+}
 window.addEventListener('DOMContentLoaded', init);
