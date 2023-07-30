@@ -30,6 +30,16 @@ function init() {
     element.addEventListener('click', function () {
         remove();
     });
+
+    element = document.querySelector('select');
+    element.addEventListener('change', function () {
+        changeInputOptions();
+    });
+
+    element = document.getElementById('advAddBtn');
+    element.addEventListener('click', function () {
+        addAdvanced();
+    });
 }
 
 function walk() {
@@ -169,6 +179,59 @@ function add() {
     // let oldP = document.getElementById('p1');
     // oldP.insertAdjacentHTML('afterend', '<p>This is a<em>test</em> of the DOM</p>');
     // clearly short hands are pretty easy!
+}
+
+function changeInputOptions() {
+    let element = document.querySelector('select');
+    let selectedOption = element.options[element.selectedIndex].value;
+
+    let textNodeDiv = document.getElementById("textNodeAddition");
+    let commentNodeDiv = document.getElementById("commentNodeAddition");
+    let elementNodeDiv= document.getElementById("elementNodeAddition");
+
+    switch (selectedOption) {
+        case 'textNode':
+            textNodeDiv.style.display = 'block';
+            commentNodeDiv.style.display = 'none';
+            elementNodeDiv.style.display = 'none';
+            break;
+        case 'comment':
+            textNodeDiv.style.display = 'none';
+            commentNodeDiv.style.display = 'block';
+            elementNodeDiv.style.display = 'none';
+            break;
+        case 'element':
+            textNodeDiv.style.display = 'none';
+            commentNodeDiv.style.display = 'none';
+            elementNodeDiv.style.display = 'block';
+            break;
+    }
+}
+
+function addAdvanced() {
+    let selectElement = document.querySelector('select');
+    let selectedOption = selectElement.options[selectElement.selectedIndex].value;
+    let outputElement = document.querySelector('output');
+    let newElement;
+    let currDate = new Date();
+
+    switch (selectedOption) {
+        case 'textNode':
+            let textContent = document.getElementById('textNodeContent');
+            newElement = document.createTextNode(`${textContent.value} ${currDate.toLocaleString()} `);
+            break;
+        case 'comment':
+            let commentContent = document.getElementById('commentNodeContent');
+            newElement = document.createComment(`${commentContent.value} ${currDate.toLocaleString()} `);
+            break;
+        case 'element':
+            let tagName = document.getElementById('elementTagName'); 
+            let elementContent = document.getElementById('elementNodeContent');
+            newElement = document.createElement(tagName.value);
+            newElement.innerText = `${elementContent.value} ${currDate.toLocaleString()} `;
+    }
+
+    outputElement.appendChild(newElement);
 }
 
 function remove() {
