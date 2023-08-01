@@ -50,6 +50,16 @@ function init() {
     element.addEventListener('click', function () {
         selectorDelete();
     });
+
+    element = document.getElementById('basicCloneBtn');
+    element.addEventListener('click', function () {
+        basicClone();
+    });
+
+    element = document.getElementById('advCloneBtn');
+    element.addEventListener('click', function () {
+        advanceClone();
+    });
 }
 
 function walk() {
@@ -224,6 +234,12 @@ function addAdvanced() {
     let newElement;
     let currDate = new Date();
 
+    if (!outputElement) {
+        outputElement = document.createElement('output');
+        outputElement.innerText = 'Output: ';
+        document.body.appendChild(outputElement);
+    }
+
     switch (selectedOption) {
         case 'textNode':
             let textContent = document.getElementById('textNodeContent');
@@ -268,5 +284,44 @@ function selectorDelete() {
     for (let i=0; i < elementsToDelete.length; i++) {
         elementsToDelete[i].remove();
     }
+}
+
+function basicClone() {
+    let pElement = document.getElementById('p1');
+    let clonedElement = pElement.cloneNode(true);
+    let outputElement = document.querySelector('output');
+
+    clonedElement.removeAttribute('id');
+    outputElement.appendChild(clonedElement);
+
+}
+
+
+//Images came from Unsplash.com
+let imageAltText = ['A pink and white flower sitting on top of green leaves',
+                    'A close up picture of a plant pink flower buds',
+                    'A close up picture of green plant with water droplets on it',
+                    'A tree filled with purple fllowers']
+
+function advanceClone() {
+    let templateElement = document.querySelector('template');
+    let clonedElement = templateElement.content.cloneNode(true);
+    let numCards = document.querySelectorAll('card-element').length;
+
+    let cardImgElement = clonedElement.querySelector('img');
+    cardImgElement.src = `images/image${numCards % 4 }.jpg`;
+    cardImgElement.alt = imageAltText[numCards % 4 ];
+
+    let cardTitleElement = clonedElement.querySelector('card-title')
+    cardTitleElement.textContent = `Card ${numCards}`;
+
+    let cardTextElement = clonedElement.querySelector('card-text');
+    cardTextElement.textContent = `This is card ${numCards} paragraph`;
+
+    let cardLinkElement = clonedElement.querySelector('a');
+    cardLinkElement.href = `https://www.google.com/search?q=${numCards}`;
+
+    let containerElement = document.querySelector('card-container');
+    containerElement.appendChild(clonedElement);
 }
 window.addEventListener('DOMContentLoaded', init);

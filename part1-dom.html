@@ -95,6 +95,38 @@
         div {
             display: none;
         }
+
+        card-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 1em;
+        }
+
+        card-element {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid var(--darkcolor1);
+            border-radius: 10px;
+
+        }
+        
+        card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--darkcolor1);
+            background-color: var(--color4);
+        }
+
+        card-image img {
+            width: 100%;
+            max-height: 150px;
+            max-width: 300px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -184,11 +216,6 @@
 
 
         <input type="button" id="advAddBtn" value="Advance Add">
-
-        <br>
-        <output>
-            Output:
-        </output>
     </fieldset>
 
     <fieldset>
@@ -220,15 +247,40 @@
           Q5b) Add template at the bottom of the page with some HTML markup representing a "card" that would have and title, image, a short text paragraph and link.  This template should be hidden from view using the <template> tag.  Add a button "Advanced Clone" that clones the template and adds it to the DOM.  Generate some boilerplate text to put in the title and text put add in some random value or number, so you can tell each new card that you are adding.  Find a few images at Unsplash or other sites to use as the card image to make it interesting.  The card design is up to you, and you are more than welcome to get inspiration from online for design.  These cards might be what you could use for a portfolio or gallery of some sort so have fun as if you do this correctly, you can use for your portfolio site eventually.  Make sure you are using semantic HTML and simple CSS to style the cards.  You should use CSS variables.
 
         -->
+        <label for="basicCloneBtn">Basic Clone</label>
+        <input type="button" id="basicCloneBtn" value="Basic Clone">
+
+        <label for="advCloneBtn">Advance Clone</label>
+        <input type="button" id="advCloneBtn" value="Advance Clone">
     </fieldset>
 
 </form>
 </section>
 
+<output>
+    Output:
+    <card-container>
+
+    </card-container>
+</output>
+
 <hr>
 <h2>Look out below these will get deleted if you press the buttons above!</h2>
 <p>I am scared of being deleted!</p>
 <p>Me too. Oh noes, here comes the <code>removeChild()</code> method, it's going to delete us!</p>
+
+<template>
+    <card-element>
+        <card-image>
+            <img src="" alt="Img Element in template Tag, no image.">
+        </card-image>
+        <card-title>Title</card-title>
+        <card-text>Short text paragraph</card-text>
+        <card-link>
+            <a href="" >Template Dead Link</a>
+        </card-link>        
+    </card-element>
+</template>
 
 <!-- put all your new code in this dom.js file -->
 <script src="dom.js"></script>
