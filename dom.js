@@ -268,8 +268,9 @@ function safeDelete() {
     let lastChild = bodyElement.lastChild;
     let controlsSection = document.getElementById('controls');
 
+    console.log(lastChild);
     if (lastChild.isSameNode(controlsSection)) {
-        if (lastChild.previousSibiling) {
+        if (lastChild.previousSibling) {
             document.body.removeChild(lastChild.previousSibling);
         }
     } else {
