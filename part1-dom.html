@@ -61,21 +61,25 @@
         }
 
         .shmancy {
-            /* Inspiration https://codepen.io/P1N2O/pen/pyBNzX */
+            /* Inspiration https://codepen.io/P1N2O/pen/pyBNzX
             animation-name: backgroundGradient;
             animation-duration: 3s;
             animation-iteration-count: infinite;
             animation-direction: alternate;
             animation-timing-function: ease;
             background: linear-gradient(45deg, var(--color1), var(--color2), var(--color3), var(--color4));
-            background-size: 400% 100%;
+            background-size: 400% 100%; */
+
+            /* Inspiration https://codepen.io/antoniasymeonidou/pen/wvPvMve */
+            /* background: linear-gradient(gold, gold);
+            background-size: 100% 10px;
+            background-repeat: no-repeat;
+            transition: background-size .7s, background-position .5s ease-in-out; */
+
+            /* Insipration https://codepen.io/mireille1306/pen/BawdXzY */
+            text-shadow: 1px 1px 2px var(--color1), 0 0 0.2em var(--color4), 0 0 0.2em var(--color5), 0 0 0.2em;
         }
 
-        @keyframes  backgroundGradient {
-            0% {background-position: 0% 100%;}
-	        50% {background-position: 50% 100%;}
-	        100% {background-position: 100% 100%;}
-        }
 
         output {
             display:block;

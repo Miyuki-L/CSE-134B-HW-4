@@ -151,7 +151,7 @@ function modify() {
     // be careful doing many styles bit by bit it isn't efficent, might be easier just to set a class
 
     // you can also update the class list
-    el.classList.add('fancy');
+    el.classList.add('fancy');  
 
     // you can also update the dataset which change data-* attributes
     el.dataset.cool = 'true';       // data-cool="true"
@@ -171,7 +171,8 @@ function advanceModify() {
     h1Element.style.color = `var(--darkcolor${Math.floor(Math.random() * 6) + 1})`;
 
     let pElement = document.querySelector('p');
-    pElement.classList.toggle('shmancy');
+    pElement.classList.toggle('fancy');
+    pElement.classList.add('shmancy')
 }
 
 function add() {
